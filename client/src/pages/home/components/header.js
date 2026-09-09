@@ -8,7 +8,7 @@ function Header({socket}) {
     (state) => state.userReducer
   );
 
-  console.log(user);
+ 
 
   function getFullname() {
     const fname =
