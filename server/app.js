@@ -22,7 +22,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 const server = require('http').createServer(app)
 const io = require('socket.io')(server,{cors:{
-    origin:'https://quick-chat-webapp.netlify.app/',
+    origin:'https://quick-chat-webapp.netlify.app',
     methods:['GET','POST']
 }})
 
