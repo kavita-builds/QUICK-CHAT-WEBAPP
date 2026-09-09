@@ -38,30 +38,30 @@ app.use('/api/chat',chatRouter)
 app.use('/api/message',messageRouter)
 
 io.on("connection", (socket) => {
-  console.log("SOCKET CONNECTED:", socket.id);
+
 
   socket.on("join-room", (userid) => {
-    console.log("JOIN ROOM:", userid);
+    
 
     socket.join(userid);
 
-    console.log("ROOMS:", socket.rooms);
+   
   });
 
   socket.on("send-message", (message) => {
-    console.log("MESSAGE RECEIVED FROM CLIENT:", message);
+   
 
-    console.log("SENDING TO:", message.members);
+    
 
     io.to(message.members[0])
       .to(message.members[1])
       .emit("receive-message", message);
 
-    console.log("MESSAGE EMITTED");
+   
   });
 
   socket.on("disconnect", () => {
-    console.log("SOCKET DISCONNECTED:", socket.id);
+   
   });
 });
 

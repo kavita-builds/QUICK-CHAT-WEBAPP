@@ -15,11 +15,11 @@ export const loginUser = async (user) => {
       user
     );
 
-    console.log("LOGIN RESPONSE:", response.data);
+  
 
     return response.data;
   } catch (error) {
-    console.log("LOGIN ERROR:", error);
+  
     return error;
   }
 };

@@ -23,7 +23,7 @@ function Login() {
 
             dispatch(hideLoader());
 
-            console.log("LOGIN RESPONSE:", response);
+     
 
             if (response.success) {
                 toast.success(response.message);
@@ -31,10 +31,7 @@ function Login() {
                 // Your backend returns token directly
                 localStorage.setItem("token", response.token);
 
-                console.log(
-                    "TOKEN SAVED:",
-                    localStorage.getItem("token")
-                );
+              
 
                 window.location.href = "/";
             } else {
@@ -43,7 +40,7 @@ function Login() {
         } catch (error) {
             dispatch(hideLoader());
 
-            console.error("LOGIN ERROR:", error);
+     
 
             toast.error(
                 error?.response?.data?.message ||

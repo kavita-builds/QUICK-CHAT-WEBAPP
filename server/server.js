@@ -9,5 +9,4 @@ const server =  require('./app')
 const port = process.env.PORT_NUMBER || 3000;
 
 server.listen(port,()=>{
-    console.log("server is running on port number " + port)
 });

@@ -134,7 +134,7 @@ function formatName(user) {
 useEffect(() => {
 
   const receiveMessage = (message) => {
-    console.log("RECEIVED:", message);
+    
 
     const { selectedChat, allChats } =
       store.getState().userReducer;
@@ -148,7 +148,7 @@ useEffect(() => {
     );
 
     if (!chat) {
-      console.log("Chat not found:", message.chatId);
+      
       return;
     }
 

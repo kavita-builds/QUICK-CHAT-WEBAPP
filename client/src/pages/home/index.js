@@ -17,21 +17,21 @@ function Home() {
   useEffect(() => {
     if (!user?._id) return;
 
-    console.log("JOINING USER ROOM:", user._id);
 
-    // Join user's private room
+
+  
     socket.emit("join-room", user._id);
 
-    // Tell server user is online
+  
     socket.emit("user-login", user._id);
 
     const handleOnlineUsers = (users) => {
-      console.log("ONLINE USERS:", users);
+
       setOnlineUser(users);
     };
 
     const handleOnlineUsersUpdated = (users) => {
-      console.log("ONLINE USERS UPDATED:", users);
+   
       setOnlineUser(users);
     };
 
