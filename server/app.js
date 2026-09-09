@@ -22,7 +22,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 const server = require('http').createServer(app)
 const io = require('socket.io')(server,{cors:{
-    origin:'http://localhost:3001',
+    origin:'http://localhost:3000',
     methods:['GET','POST']
 }})
 
@@ -37,49 +37,33 @@ app.use('/api/user',userRouter)
 app.use('/api/chat',chatRouter)
 app.use('/api/message',messageRouter)
 
-io.on('connection',socket=>{
-    socket.on('join-room',userid =>{
-        socket.join(userid)
-        
-    })
+io.on("connection", (socket) => {
+  console.log("SOCKET CONNECTED:", socket.id);
 
- socket.on('send-message',(message)=>{                       
-    io
-    .to(message.members[0])
-    .to(message.members[1])
-    .emit('receive-message',message)
- })
+  socket.on("join-room", (userid) => {
+    console.log("JOIN ROOM:", userid);
 
+    socket.join(userid);
 
-socket.on('clear-unread-messages',data=>{
-    io
-    .to(data.members[0])
-    .to(data.members[1])
-    .emit('message-count-cleared',data)
-})
+    console.log("ROOMS:", socket.rooms);
+  });
 
-socket.on('user-typing',(data)=>{
-     io
-    .to(data.members[0])
-    .to(data.members[1])
-    .emit('started-typing',data)
+  socket.on("send-message", (message) => {
+    console.log("MESSAGE RECEIVED FROM CLIENT:", message);
 
+    console.log("SENDING TO:", message.members);
 
-})
+    io.to(message.members[0])
+      .to(message.members[1])
+      .emit("receive-message", message);
 
-socket.on('user-login',userId=>{
-    if(!onlineUser.includes(userId)){
-        onlineUser.push(userId)
-    }
-    socket.emit('online-users',onlineUser)
-})
+    console.log("MESSAGE EMITTED");
+  });
 
-socket.on('user-offline',userId =>{
-    oonlineUser.splice(onlineUser.indexOf(userId),1);
-    io.emit('online-users-updated',onlineUser)
-})
-
-})
+  socket.on("disconnect", () => {
+    console.log("SOCKET DISCONNECTED:", socket.id);
+  });
+});
 
 
 
